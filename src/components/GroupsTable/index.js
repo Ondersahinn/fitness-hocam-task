@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { fetchGruops } from '../../action/gruopsAction';
 import * as GruopsAction from '../../types/gruopsActionTypes';
-import { columns } from '../../utils'
+import { columns, groups } from '../../utils'
 import { Button, Table } from 'antd';
-import { CloseOutlined,EditOutlined } from '@ant-design/icons';
+import { CloseOutlined,EditOutlined,PlusOutlined } from '@ant-design/icons';
 
 function GupsTable(props) {
   const [gruops, setGruops] = React.useState([]);
+
 
   function addDeleteButton (list){
     return list.map((listElement) => {
@@ -17,9 +18,9 @@ function GupsTable(props) {
       newList.delete = (
         <Button
           shape='circle'
-          icon={<EditOutlined />}
+          icon={<CloseOutlined />}
           onClick={() => {
-            this.handleClickDelete(listElement);
+            handleClickDelete(listElement);
           }}
         />
       );
@@ -33,9 +34,8 @@ function GupsTable(props) {
       newList.edit = (
         <Button
           shape='circle'
-          icon={<CloseOutlined />}
+          icon={<EditOutlined />}
           onClick={() => {
-            this.handleClickDelete(listElement);
           }}
         />
       );
@@ -56,13 +56,29 @@ function GupsTable(props) {
       addDeleteButton(props.gruops);
       addUpdateButton(props.gruops);
     }
-  }, [props]);
+  }, [addDeleteButton, props]);
 
  
+  function handleClickDelete(element){
+    const newList = gruops.filter(group => group._id === element._id);
+    setGruops(newList);
+  }
 
   return (
     <div style={{}}>
       <Table columns={columns} dataSource={gruops} pagination={false} />
+      <div>
+      <Button
+      style={{float:'right', marginRight:'8.5vw',marginTop:'3vh'}}
+      type="primary"
+          shape='circle'
+          icon={<PlusOutlined />}
+          onClick={() => {
+            
+          }}
+        />
+      </div>
+     
     </div>
   );
 }
