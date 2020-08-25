@@ -6,7 +6,7 @@ import { fetchGruops } from '../../action/gruopsAction';
 import * as GruopsAction from '../../types/gruopsActionTypes';
 import { columns } from '../../utils'
 import { Button, Table } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { CloseOutlined,EditOutlined } from '@ant-design/icons';
 
 function GupsTable(props) {
   const [gruops, setGruops] = React.useState([]);
@@ -16,9 +16,24 @@ function GupsTable(props) {
       const newList = listElement;
       newList.delete = (
         <Button
-          type='primary'
           shape='circle'
-          icon={<DeleteOutlined />}
+          icon={<EditOutlined />}
+          onClick={() => {
+            this.handleClickDelete(listElement);
+          }}
+        />
+      );
+      return newList;
+    });
+  };
+
+  function addUpdateButton (list){
+    return list.map((listElement) => {
+      const newList = listElement;
+      newList.edit = (
+        <Button
+          shape='circle'
+          icon={<CloseOutlined />}
           onClick={() => {
             this.handleClickDelete(listElement);
           }}
@@ -39,6 +54,7 @@ function GupsTable(props) {
     ) {
       setGruops(props.gruops);
       addDeleteButton(props.gruops);
+      addUpdateButton(props.gruops);
     }
   }, [props]);
 

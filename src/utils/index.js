@@ -35,4 +35,12 @@ export const columns = [
     title: 'Grup Adı',
     dataIndex: 'groupName',
   },
+  {
+    title: '',
+    dataIndex: 'delete',
+  },
+  {
+    title: '',
+    dataIndex: 'edit',
+  },
 ];
